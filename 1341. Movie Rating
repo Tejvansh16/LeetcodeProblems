@@ -1,0 +1,18 @@
+(
+    select name as results
+    from Users left join MovieRating
+    using(user_id)
+    group by Users.user_id
+    order by count(*) desc, name
+    limit 1
+)
+union
+(
+    select title
+    from Movies left join MovieRating
+    using(movie_id)
+    where created_at like '2020-02%'
+    group by movie_id
+    order by avg(rating) desc, title
+    limit 1
+)
