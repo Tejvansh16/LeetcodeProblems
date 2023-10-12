@@ -1,0 +1,16 @@
+class Solution {
+    public int countGoodRectangles(int[][] rectangles) {
+        int maxlen=0,count=0;
+        for (int[] rect : rectangles) {
+            int minSide = Math.min(rect[0], rect[1]);
+            if (minSide > maxlen) {
+                maxlen = minSide; 
+                count = 1; 
+            } else if (minSide == maxlen) {
+                count++; 
+            }
+        }
+        
+        return count;
+    }
+}
