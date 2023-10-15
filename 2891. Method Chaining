@@ -1,0 +1,8 @@
+import pandas as pd
+
+def findHeavyAnimals(animals: pd.DataFrame) -> pd.DataFrame:
+    df=pd.DataFrame(animals)
+    df=df.sort_values(by='weight',ascending=False)
+    return df.loc[df['weight']>100,['name']]
+
+ 
