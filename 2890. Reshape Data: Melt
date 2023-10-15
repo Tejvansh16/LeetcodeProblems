@@ -1,0 +1,9 @@
+import pandas as pd
+
+def meltTable(report: pd.DataFrame) -> pd.DataFrame:
+    df=pd.DataFrame(report)
+    df=pd.melt(df,id_vars=['product'],var_name='quarter',value_name='sales')
+    return df
+#id_vars=['product'] specifies that the 'product' column should be kept as is and not reshaped.
+#var_name='quarter' specifies that the variable column (previously 'quarter_1', 'quarter_2', etc.) should be renamed to 'quarter' in the resulting DataFrame.
+#value_name='sales' specifies that the value column (previously containing the sales data) should be renamed to 'sales' in the resulting DataFrame.
