@@ -1,0 +1,9 @@
+import pandas as pd
+
+def fix_names(users: pd.DataFrame) -> pd.DataFrame:
+    users_df = pd.DataFrame(users)
+    def fix_name(name):
+        return name.capitalize()
+    users_df['name'] = users_df['name'].apply(fix_name)
+    users_df = users_df.sort_values(by='user_id')
+    return users_df
