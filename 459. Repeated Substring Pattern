@@ -1,0 +1,22 @@
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        int len = s.length();
+        
+        // Base case: If the string is empty or has only one character, it cannot be repeated.
+        if (len <= 1) {
+            return false;
+        }
+        
+        // Try all possible substring lengths (from 1 to half of the string's length)
+        for (int i = 1; i <= len / 2; i++) {
+            String substring = s.substring(0, i);
+            
+            // If the current substring can be repeated to form the original string, recurse on the rest of the string.
+            if (s.length() % i == 0 && s.matches("(" + substring + ")+")) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+}
