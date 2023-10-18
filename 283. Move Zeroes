@@ -1,0 +1,21 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        moveZeroesRecursive(nums, 0, 0);
+    }
+    private void moveZeroesRecursive(int[] nums, int current, int zeroIndex) {
+        if (current >= nums.length) {
+            return;
+        }
+
+        if (nums[current] != 0) {
+            // Swap the non-zero element with the first zero element encountered
+            int temp = nums[current];
+            nums[current] = nums[zeroIndex];
+            nums[zeroIndex] = temp;
+            zeroIndex++;
+        }
+
+        moveZeroesRecursive(nums, current + 1, zeroIndex);
+    }
+
+}
