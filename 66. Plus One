@@ -1,0 +1,24 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int n = digits.length;
+        // Increment the least significant digit
+        digits[n - 1]++;
+        
+        // Propagate the carry
+        for (int i = n - 1; i > 0; i--) {
+            if (digits[i] > 9) {
+                digits[i] = 0;
+                digits[i - 1]++;
+            }
+        }
+        
+        // If there's still a carry in the most significant digit, create a new array
+        if (digits[0] > 9) {
+            int[] result = new int[n + 1];
+            result[0] = 1;
+            return result;
+        }
+        
+        return digits;
+    }
+}
