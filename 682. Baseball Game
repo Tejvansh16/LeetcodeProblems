@@ -1,0 +1,28 @@
+class Solution {
+    public int calPoints(String[] operations) {
+        int sum = 0;
+        int[] scores = new int[operations.length];
+        int index = 0;
+
+        for (String op : operations) {
+            if (op.equals("C")) {
+                sum -= scores[--index];
+            } else if (op.equals("D")) {
+                int doubleScore = scores[index - 1] * 2;
+                scores[index++] = doubleScore;
+                sum += doubleScore;
+            } else if (op.equals("+")) {
+                int lastScore = scores[index - 1];
+                int newScore = lastScore + scores[index - 2];
+                scores[index++] = newScore;
+                sum += newScore;
+            } else {
+                int score = Integer.parseInt(op);
+                scores[index++] = score;
+                sum += score;
+            }
+        }
+
+        return sum;
+    }
+}
