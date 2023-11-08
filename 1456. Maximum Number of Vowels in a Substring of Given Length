@@ -1,0 +1,19 @@
+class Solution {
+    public int maxVowels(String s, int k) {
+        int slow = 0, fast = 0, window = 0;
+        for(fast = 0; fast < k; fast++){
+            window += isVowel(s.charAt(fast));
+        }
+        int res = window;
+        while(fast < s.length()){
+            window -= isVowel(s.charAt(slow++));
+            window += isVowel(s.charAt(fast));
+            res = Math.max(window, res);
+            fast++;
+        }
+        return res;
+    }
+    public int isVowel(char c){
+        return (c == 'a'|| c == 'e'|| c == 'i' || c == 'o'|| c == 'u') ? 1 : 0;
+    }
+}
