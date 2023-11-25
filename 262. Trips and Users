@@ -1,0 +1,14 @@
+import pandas as pd
+
+def trips_and_users(trips: pd.DataFrame, users: pd.DataFrame) -> pd.DataFrame:
+    trips_and_users = trips.merge(users,how='left', left_on ='client_id',right_on='users_id').merge(users,how='left', left_on ='driver_id',right_on='users_id', suffixes = ('_client','_driver'))
+
+    unbanned = trips_and_users['banned_driver'].eq('No') & trips_and_users['banned_client'].eq('No') & trips_and_users['request_at'].ge('2013-10-01') & trips_and_users['request_at'].le('2013-10-03')
+    cancelled = trips_and_users['status'].isin(['cancelled_by_driver','cancelled_by_client'])
+    aggregate1 = trips_and_users[unbanned & cancelled].groupby(['request_at'])['id'].count()
+    aggregate2 = trips_and_users[unbanned].groupby(['request_at'])['id'].count()
+    
+    cancellation_rate= round(aggregate1/aggregate2,2).fillna(0)
+    output = pd.DataFrame(cancellation_rate).reset_index()
+    output.columns = ['Day','Cancellation Rate']
+    return output
