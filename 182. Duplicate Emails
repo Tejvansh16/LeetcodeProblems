@@ -1,6 +1,11 @@
+
+# pandas code
 import pandas as pd
 
 def duplicate_emails(person: pd.DataFrame) -> pd.DataFrame:
     duplicate_df = person[person['email'].duplicated()][['email']]
     duplicate_df = duplicate_df.drop_duplicates()
     return duplicate_df
+-- sql code
+# Write your MySQL query statement below
+select email from Person group by email having count(email)>1;
