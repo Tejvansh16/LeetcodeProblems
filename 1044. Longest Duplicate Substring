@@ -1,0 +1,25 @@
+class Solution:
+    def has_duplicate(self, s, length):
+        # O(n)
+        substring_set = set([])
+        for l in range(len(s) - length + 1):
+            if s[l:l+length] in substring_set:
+                return True, s[l:l+length]
+            else:
+                substring_set.add(s[l:l+length])
+
+        return False, ""
+    def longestDupSubstring(self, s: str) -> str:
+        # O(log(n))
+        start, end = 0, len(s)
+        result = ""
+
+        while start + 1 < end:
+            mid = start + (end - start) // 2
+            is_found, candidate = self.has_duplicate(s, mid)
+            if is_found:
+                start, result = mid, candidate
+            else:
+                end = mid
+
+        return result
