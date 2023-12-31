@@ -1,0 +1,14 @@
+862. Shortest Subarray with Sum at Least Kclass Solution:
+    def shortestSubarray(self, nums: List[int], k: int) -> int:
+        q=deque()
+        q.append([0,0])
+        s=0
+        res=len(nums)+1
+        for i,el in enumerate(nums):
+            s+=el                                    #curr sum
+            while q and s<=q[-1][1]:    #maintain sums in increasing order
+                q.pop()
+            while q and s-q[0][1]>=k:
+                res=min(res,i-q.popleft()[0]+1)                   #getting min len subarray
+            q.append([i+1,s])
+        return res if res<len(nums)+1 else -1       
