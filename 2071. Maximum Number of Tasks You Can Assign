@@ -1,0 +1,27 @@
+class Solution:
+    def maxTaskAssign(self, tasks: List[int], workers: List[int], pills: int, strength: int) -> int:
+        tasks.sort()
+        workers.sort()
+
+        def fn(k,pills):
+            ww = workers[-k:]
+            
+            for t in reversed(tasks[:k]):
+                if t <= ww[-1]: ww.pop()
+                elif pills and t <= ww[-1] + strength:
+                    pills -= 1
+                    i = bisect_left(ww,t-strength)
+                    ww.pop(i)
+                else:
+                    return False
+
+            return True
+        
+        low, high = 0, min(len(tasks),len(workers))
+
+        while low <= high:
+            mid = (low + high)//2
+            if fn(mid,pills): low = mid + 1
+            else: high = mid - 1
+
+        return high
