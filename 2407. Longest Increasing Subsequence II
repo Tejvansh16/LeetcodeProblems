@@ -1,0 +1,30 @@
+class Solution:
+    def getmax(self, st, start, end):
+        maxi = 0
+        
+        while start < end:
+            if start%2:#odd
+                maxi = max(maxi, st[start])
+                start += 1
+            if end%2:#odd
+                end -= 1
+                maxi = max(maxi, st[end])
+            start //= 2
+            end //= 2
+        return maxi
+        
+    def update(self, st, maxi, n):
+        st[n] = maxi
+        while n > 1:
+            n //= 2
+            st[n] = max(st[2*n], st[2*n+1])
+    def lengthOfLIS(self, nums: List[int], k: int) -> int:
+        ans = 1
+        length = max(nums)
+        st = [0]*length*2
+        for n in nums:
+            n -= 1
+            maxi = self.getmax(st, max(0, n-k)+length, n+length) + 1
+            self.update(st, maxi, n+length)
+            ans = max(maxi, ans)
+        return ans
