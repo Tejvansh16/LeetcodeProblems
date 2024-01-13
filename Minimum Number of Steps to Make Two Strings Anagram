@@ -1,0 +1,16 @@
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        s_freq = {}
+        t_freq = {}
+        for char in s:
+            s_freq[char] = s_freq.get(char, 0) + 1
+        for char in t:
+            t_freq[char] = t_freq.get(char, 0) + 1
+
+        diff_freq = {}
+
+        for char in s_freq:
+            diff_freq[char] = s_freq[char] - t_freq.get(char, 0)
+
+        min_steps = sum(abs(count) for count in diff_freq.values())
+        return min_steps
